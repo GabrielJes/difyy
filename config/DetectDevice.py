@@ -1,13 +1,7 @@
 import time
 import subprocess
 import sys
-import os
 import tqdm
-
-
-def loadingProgress(): # Loading progress . 
-    for i in tqdm(range(10)):
-        time.sleep(1)
 
 def PendriveDetect(): # Retorna o caminho do disco que foi detectado . 
     # Roda o fdisk para verificar quais sao as opcoes de discos, ignorando a opcao do disco A
@@ -42,13 +36,14 @@ def PendriveDetect(): # Retorna o caminho do disco que foi detectado .
             local = 'SDD'
             return local
     else:
-        print('Pendrive não encontrado')
+        print('Disk not found')
         return False # retorna false para encerrar o programa
 
 def IdentifyFileSystem(): # Verifica qual sistemas de arquivo a pessoa quer formatar o pendrive e retorna o nome .
     print()
-    print('Selecione a opcao dos sistema de arquivos: ')
+    print('Select file system : ')
     print()
+    print('Enter the option number: ')
     print(' 1 - ext4 \n 2 - vfat')
     print('-'*40)
 
@@ -58,70 +53,43 @@ def IdentifyFileSystem(): # Verifica qual sistemas de arquivo a pessoa quer form
         
     elif Archive == 2:
         FileSystem = 'Vfat'
-
+    
     else :
-        print('Opção inválida')
+        print('Invalid option')
         sys.exit(1)
 
     return FileSystem
 
 def Confirm(UserResponse): # Confirma se o usuario ja conectou o pendrive, retorna True caso tenha confirmado
     if UserResponse != 's' and UserResponse != 'y':
-        print('Encerrando ...')
-        time.sleep(3)
+        print('Closing ...')
         sys.exit(1)
     else:
         return True
 
-def ext4Config(localdisk):
+def ext4Config(localdisk): # Configuracao para opcao de ext4
     FileSystem = 'ext4'
     output = subprocess.check_output(f"sudo mkfs.ext4 /dev/{localdisk}*" , shell=True)
     output = output.decode('utf-8')
-    print(output)
-    
-def vfatConfig(localdisk):
+        
+def vfatConfig(localdisk): # Configuracao para opcao de vfat
     FileSystem = 'vfat'
     output = subprocess.check_output(f"sudo mkfs.ext4 /dev/{localdisk}*" , shell=True)
     output = output.decode('utf-8')
-    print(output)
-
-def FormatDisk(local,Filesystem):
+   
+def FormatDisk(local,Filesystem): # Formata o disco com sistema de arquivos escolhido
     output = subprocess.Popen(f"sudo umount /dev/{local}1", shell=True) 
-    print('Criando sistema de arquivos! ')
+    print('Creating file system! \n ')
     output = subprocess.check_output(f"sudo mkfs.{Filesystem} /dev/{local}1", shell=True) 
     output = output.decode('utf-8')
-    print(output)
+    return True
+ 
+def IsoIdentify():
+    image = input('Enter the path of your image: ') 
+    time.sleep(0.4)
+    print('Creating boot! ')
+    time.sleep(2)
+    output = subprocess.Popen(f"sudo dd if={image} of=/dev/sdb status=progress && sync", shell=True)
+    return True
 
-    
-
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# criar script para formatacao do pendrive
-
-# adicione o caminho da imagem
-
-# verificar se existe / foi encontrado
-
-# iniciar processo de boot
-
-# criar barra de progresso
-
-# criar um output de feito ou erro
 
