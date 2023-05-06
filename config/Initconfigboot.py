@@ -21,8 +21,9 @@ if Confirm == True :
         Identify = DetectDevice.IsoIdentify()
     else:
         sys.exit(1)
-    
-        
+else:
+    sys.exit(1)        
+    print('Disk not found')
     
 
 

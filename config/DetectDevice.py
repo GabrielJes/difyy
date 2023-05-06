@@ -36,8 +36,9 @@ def PendriveDetect(): # Retorna o caminho do disco que foi detectado .
             local = 'SDD'
             return local
     else:
-        print('Disk not found')
-        return False # retorna false para encerrar o programa
+        print()
+        print('Disk not found! ')
+        sys.exit(1) # retorna false para encerrar o programa
 
 def IdentifyFileSystem(): # Verifica qual sistemas de arquivo a pessoa quer formatar o pendrive e retorna o nome .
     print()
@@ -62,6 +63,7 @@ def IdentifyFileSystem(): # Verifica qual sistemas de arquivo a pessoa quer form
 
 def Confirm(UserResponse): # Confirma se o usuario ja conectou o pendrive, retorna True caso tenha confirmado
     if UserResponse != 's' and UserResponse != 'y':
+        print()
         print('Closing ...')
         sys.exit(1)
     else:
