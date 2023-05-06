@@ -90,7 +90,7 @@ def IsoIdentify():
     image = input('Enter the path of your image: ') 
     time.sleep(0.4)
     print('Creating boot! ')
-    time.sleep(2)
+    time.sleep(5)
     output = subprocess.Popen(f"sudo dd if={image} of=/dev/sdb status=progress && sync", shell=True)
     return True
 

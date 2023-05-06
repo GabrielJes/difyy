@@ -2,7 +2,7 @@ import os
 import subprocess
 import time
 import sys
-import DetectDevice
+import DetectDevice 
 import tqdm
 
 
@@ -23,7 +23,7 @@ if Confirm == True :
         sys.exit(1)
 else:
     sys.exit(1)        
-    print('Disk not found')
+    
     
 
 
